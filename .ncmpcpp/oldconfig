@@ -1,0 +1,88 @@
+##### connection settings #####
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "/home/roelof/Music/muziek"
+mpd_crossfade_time = "3"
+
+mpd_communication_mode = "notifications"
+message_delay_time = "3"
+
+##### Visualizer #####
+visualizer_output_name = "FIFO"
+visualizer_in_stereo = "yes"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_sync_interval = "15"
+visualizer_type = "spectrum" (spectrum/wave)
+visualizer_look = "▌▌"
+#visualizer_look = "◆▋"
+visualizer_color = "red"
+
+playlist_disable_highlight_delay = "5"
+alternative_header_first_line_format = "{$5%t$/b}"
+alternative_header_second_line_format		= "$7{$b%a$/b}$9 - $5{%b}$9 $8{(%y)}"
+now_playing_prefix = "$b"
+now_playing_suffix = "$/b"
+
+browser_playlist_prefix = "$7$bplaylist$/b$9 "
+selected_item_prefix = "$6"
+selected_item_suffix = "$9"
+
+##### song format #####
+song_list_format = "{%a - }{%t}|{$8%f$9}$R{$7(%b)$9}"
+song_status_format = "{%a - }{%t - }{%b}"
+
+song_window_title_format = "{%a - }{%t}|{%f}"
+
+##### columns settings #####
+song_columns_list_format = "(8)[white]{l} (28)[cyan]{a} (28)[white]{b} (50)[cyan]{t}"
+
+##### various settings #####
+user_interface = "alternative" (classic/alternative)
+#cyclic_scrolling = "yes"
+
+
+display_volume_level = "yes"
+
+## PROGRESS BAR
+progressbar_look = "⠒⠒⠒"
+progressbar_elapsed_color = "white"
+progressbar_boldness = "no"
+#progressbar_look = "━⊙"
+#progressbar_look = "─⊙╶"
+
+header_visibility = "no"
+titles_visibility = "no"
+
+ask_before_clearing_main_playlist = "yes"
+mouse_support = "yes"
+
+external_editor = "nano"
+use_console_editor = "yes"
+
+startup_screen = "0"
+lyrics_database = "1"
+
+##### color definitions #####
+colors_enabled = "yes"
+header_window_color = "white"
+main_window_color = "white"
+
+volume_color = "cyan"
+state_line_color = "white"
+state_flags_color = "white"
+
+progressbar_color = "cyan"
+statusbar_color = "cyan"
+
+alternative_ui_separator_color = "cyan"
+main_window_highlight_color = "white"
+active_column_color = "cyan"
+window_border_color = "white"
+active_window_border = "cyan"
+
+discard_colors_if_item_is_selected = "yes"
+
+empty_tag_color = "cyan"
+
+#color1 = "white"
+#color2 = "cyan"
