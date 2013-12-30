@@ -88,6 +88,7 @@ end
 
 run_once("nm-applet")
 run_once("gnome-settings-daemon")
+awful.util.spawn_with_shell("mpd /home/roelof/.mpd/mpd.conf")
 
 -- }}}
 
@@ -117,12 +118,13 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
-require("battery")
+require("batterynew")
 require("cpu")
 require("widgets")
 
 cpu_status()
-battery_status()
+battery_status_new()
+--bami_status()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -200,9 +202,10 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         datewidget,
-        battery_widget,
+        battery_widget_new,
         cpu_widget,
         mpdwidget,
+        --bamiwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -296,6 +299,11 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
+        end),
+    awful.key({ modkey, "Shift" }, "t",
+        function (c)
+          if   c.titlebar then awful.titlebar.remove(c)
+          else awful.titlebar.add(c, { modkey = modkey }) end
         end)
 )
 

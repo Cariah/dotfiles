@@ -19,6 +19,29 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         end
     end, 10)
 
+-- Bami widget
+-- bamiwidget = widget({ type = "textbox" })
+
+-- function bami_status()
+--     local bami_state = {
+--         ["{cdf"] = 0,
+--         ["{dur}"] = 0,
+--     }
+
+--     local f = io.popen("echo '' | python -O /home/roelof/.config/awesome/untitled.pyc")
+--     for line in f:lines() do
+--         for k,v in string.gmatch(line, "([%w]+):[%s](.*)$") do
+--             if      k == "dur" then bami_state["{"..k.."}"] = v
+--             elseif  k == "cdf" then bami_state["{"..k.."}"] = v
+--             end
+--         end
+--     end
+--     f:close()
+--     bamiwidget.text = " | CDF: "..bami_state["{cdf}"].." - DUR: "..bami_state["{dur}"]
+-- end
+-- bamitimer = timer({ timeout = 60 })
+-- bamitimer:add_signal("timeout", function() bami_status() end)
+-- bamitimer:start()
 -- Date
 -- Initialize widget
 datewidget = widget({ type = "textbox" })
