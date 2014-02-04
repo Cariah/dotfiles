@@ -33,8 +33,8 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = theme.theme_dir .. "/taglist/squarefw.png"
-theme.taglist_squares_unsel = theme.theme_dir .. "/taglist/squarew.png"
+theme.taglist_squares_sel   = theme.theme_dir .. "/taglist/squarefza.png"
+theme.taglist_squares_unsel = theme.theme_dir .. "/taglist/squareza.png"
 
 theme.tasklist_floating_icon = theme.theme_dir .. "/tasklist/floatingw.png"
 

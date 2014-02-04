@@ -1,8 +1,8 @@
 battery_widget_new = widget({ type = "textbox" })
 
 function battery_status_new()
-	local col_bar_dark = "#021B21" --656975
-	local col_bar_light = "#9CA2A3"
+	local col_bar_dark = beautiful.bg_urgent
+	local col_bar_light = beautiful.fg_normal
 	local bs = "⮶"
 
 	local spacer  = " "
@@ -39,25 +39,25 @@ function battery_status_new()
 
 	elseif status:match("Discharging") then
 		if capint > 95 then
-			dir = "<span color='#7CBF9E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'></span>"
+			dir = "<span color='#C2454E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'></span>"
 		elseif capint > 85 then
-			dir = "<span color='#7CBF9E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs.."</span>"
+			dir = "<span color='#C2454E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs.."</span>"
 		elseif capint > 75 then
-			dir = "<span color='#7CBF9E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs.."</span>"
 		elseif capint > 65 then
-			dir = "<span color='#7CBF9E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮏ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs.."</span>"
 		elseif capint > 55 then
-			dir = "<span color='#7CBF9E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs.."</span>"
 		elseif capint > 45 then
-			dir = "<span color='#7CBF9E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs.."</span>"
 		elseif capint > 35 then
-			dir = "<span color='#7CBF9E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs.."</span>"
 		elseif capint > 25 then
-			dir = "<span color='#7CBF9E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮑ </span><span color='"..col_bar_light.."'>"..bs..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs.."</span>"
 		elseif capint > 15 then
-			dir = "<span color='#7CBF9E'>⮐ </span><span color='"..col_bar_light.."'>"..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮐ </span><span color='"..col_bar_light.."'>"..bs..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs..bs.."</span>"
 		elseif capint > 5 then
-			dir = "<span color='#7CBF9E'>⮐ </span><span color='"..col_bar_light.."'>"..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span>"
+			dir = "<span color='#C2454E'>⮐ </span><span color='"..col_bar_light.."'>"..bs.."</span><span color='"..col_bar_dark.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span>"
 			naughty.notify({
 				title    = "Battery Warning",
 				text    = "Battery low! "..capacity.."% left!",
@@ -75,7 +75,7 @@ function battery_status_new()
 		dir = "<span color='#C2454E'>⮎ </span><span color='"..col_bar_light.."'>"..bs..bs..bs..bs..bs..bs..bs..bs..bs..bs.."</span><span color='"..col_bar_dark.."'></span>"
 
 	end
-	battery_widget_new.text = "| " .. dir.." "
+	battery_widget_new.text = " " .. dir.." "
 	fstatus:close()
 	fcapacity:close()
 end

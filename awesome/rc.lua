@@ -53,6 +53,8 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
+wirelessinterface = 'wlan0'
+wiredinterface =    'eth0'
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -88,6 +90,10 @@ end
 
 run_once("nm-applet")
 run_once("gnome-settings-daemon")
+run_once("gnome-keyring-daemon --daemonize --login")
+run_once("urxvtd -q -f")
+--run_once("gnome-session --session=ubuntu")
+
 awful.util.spawn_with_shell("mpd /home/roelof/.mpd/mpd.conf")
 
 -- }}}
@@ -118,19 +124,131 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
-require("batterynew")
-require("cpu")
-require("widgets")
+space = widget({ type= 'textbox' })
+space.text = '  '
+space1 = widget({ type = 'textbox' })
+space1.text = ' '
+spacer = widget({ type = 'textbox' })
+spacer.text = ' <span color="' .. theme.bg_focus .. '">|</span> '
 
-cpu_status()
-battery_status_new()
---bami_status()
+-- Date
+datewidget = widget({ type = "textbox" })
+vicious.register(datewidget, vicious.widgets.date, " %b %d, <span color='#e2e8e9'>⮖</span> %R ", 1)
+
+-- Mpd
+mpdwidget = widget({ type = "textbox" })
+vicious.register(mpdwidget, vicious.widgets.mpd,
+    function (widget, args)
+        if args["{state}"] == ("Stop" or "N/A") then 
+            return "<span color='#e2e8e9'>⮕</span> Not Playing "
+        elseif args["{state}"] == "Pause" then
+        	return "<span color='#e2e8e9'>⮕</span> Paused "
+        else
+        	if args["{Artist}"] == "N/A" then
+            	return "<span color='#e2e8e9'>⮕</span> "..args["{file}"].." "
+            else
+            	return "<span color='#e2e8e9'>⮕</span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
+            end
+        end
+    end, 5)
+mpdwidget:buttons( awful.util.table.join(
+	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
+	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
+	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
+	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
+))
+
+volwidget = widget({ type = 'textbox' })
+vicious.register(volwidget, vicious.widgets.volume,
+	'<span color="#e2e8e9">$2 </span>$1%', 2, "Master")
+
+-- memory widget
+memwidget = widget({ type = 'textbox' })
+vicious.register(memwidget, vicious.widgets.mem,
+	'<span color="#e2e8e9">⮡ </span>$1%', 5)
+
+-- Network widgets
+-- netdownicon = widget({ type = 'textbox' })
+-- netdownicon.text = '<span color="#e2e8e9">⮵ </span>'
+-- netdownwidget = widget({ type = 'textbox' })
+-- vicious.register(netdownwidget, vicious.widgets.net, function(widget, args)
+-- 	local i = ''
+-- 	if args['{' .. wirelessinterface .. ' carrier}'] == 1 then
+-- 		i = wirelessinterface
+-- 	elseif args['{' .. wiredinterface .. ' carrier}'] == 1 then
+-- 		i = wiredinterface
+-- 	else
+-- 		netdownicon.visible = false
+-- 		return 'disconnected'
+-- 	end
+-- 	netdownicon.visible = true
+-- 	return args['{' .. i .. ' down_kb}'] .. 'k<span color="#657b83">/' .. string.format('%.0f', args['{' .. i .. ' rx_mb}']) .. 'M</span> '
+-- end, 2.5)
+-- -- ⮴
+-- -- ⮵
+-- netupicon = widget({ type = 'textbox' })
+-- netupicon.text = '<span color="#e2e8e9">⮴ </span>'
+-- netupwidget = widget({ type = 'textbox' })
+-- vicious.register(netupwidget, vicious.widgets.net, function(widget, args)
+-- 	local i = ''
+-- 	if args['{' .. wirelessinterface .. ' carrier}'] == 1 then
+-- 		i = wirelessinterface
+-- 	elseif args['{' .. wiredinterface .. ' carrier}'] == 1 then
+-- 		i = wiredinterface
+-- 	else
+-- 		netupicon.visible = false
+-- 		return ''
+-- 	end
+-- 	netupicon.visible = true
+-- 	return args['{' .. i .. ' up_kb}'] .. 'k<span color="#657b83">/' .. string.format('%.0f', args['{' .. i .. ' tx_mb}']) .. 'M</span>'
+-- end, 2.5)
+
+-- Battery widget
+batwidget = widget({ type = 'textbox' })
+vicious.register(batwidget, vicious.widgets.bat, function(widget, args)
+	local percent = args[2] .. '%'
+	if args[1] == '-' and args[2] < 25 then
+		percent = '<span color="' .. theme.urgent_bg .. '">' .. args[2] .. '%</span>'
+	end
+	if args[1] == '-' and args[2] < 20 then
+		naughty.notify({
+			preset = naughty.config.presets.critical,
+			title = 'Low power',
+			text = "I'm dying! Plug me in!",
+			timeout = 15,
+		})
+	end
+	if args[1] == '-' then
+		args[1] = '<span color="#C2454E">-</span>'
+	elseif args[1] == '+' then
+		args[1] = '<span color="#A2D9B1">+</span>'
+	else
+		args[1] = '<span color="#A2D9B1">⮎ </span>'
+	end
+	return args[1] .. percent
+end, 20, 'BAT0')
+
+-- Sensor widget
+sensorwidget = widget({ type = 'textbox' })
+vicious.register(sensorwidget, vicious.widgets.thermal, function(widget, args)
+	local temp = tonumber(args[1])
+	if temp > 63 then
+		naighty.notify({
+			preset = naughty.config.presets.critical,
+			title = 'Temperature Warning',
+			text = 'Is it me or is it hot in here?',
+			timeout = 13,
+		})
+		temp = '<span color="#C2454E">' .. temp .. '</span>'
+	end
+	return temp .. '<span color="#A2D9B1">°C</span>'
+end, 5, 'thermal_zone0')
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
+mywibox = { }
+mypromptbox = { }
+mylayoutbox = { }
+mytaglist = { }
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -191,25 +309,39 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = { }
+    mywibox[s][1] = awful.wibox({ position = 'top', screen = s, height = 13 })
+    mywibox[s][2] = awful.wibox({ position = 'bottom', screen = s })
+
     -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        datewidget,
-        battery_widget_new,
-        cpu_widget,
-        mpdwidget,
-        --bamiwidget,
-        s == 1 and mysystray or nil,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+    mywibox[s][1].widgets = {
+    	mylayoutbox[s],
+    	space1,
+    	mytaglist[s],
+    	mypromptbox[s], {
+    		-- Widgets
+    		space,
+    		sensorwidget, spacer,
+    		memwidget, spacer,
+    		batwidget, spacer,
+    		--netdownwidget, netdownicon,
+    		--space,
+    		--netupwidget, netupicon, spacer,
+    		volwidget, spacer,
+    		mpdwidget, space1, spacer,
+    		layout = awful.widget.layout.horizontal.rightleft,
+    	},
+    	layout = awful.widget.layout.horizontal.leftright
+	}
+    mywibox[s][2].widgets = {
+    	datewidget,
+    	s == 1 and mysystray or nil, {
+    		mylauncher,
+    		mytasklist[s],
+    		layout = awful.widget.layout.horizontal.leftright
+    	},
+    	layout = awful.widget.layout.horizontal.rightleft
+	}
 end
 -- }}}
 
@@ -371,21 +503,19 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+
     -- Set Chrome on screen1 tag 2
-    { rule = { class = "Google-chrome" },
-	  properties = {
-		tag = tags[1][2],
-		border_width = 0 
-		}, },
+    --{ rule = { class = "Google-chrome" },
+	--  properties = {
+	--	tag = tags[1][2],
+	--	border_width = 0 
+	--	}, },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    { rule = { class = "Firefox" },
-      properties = { tag = tags[1][2] } },
+    --{ rule = { class = "Firefox" },
+    --  properties = { tag = tags[1][2] } },
 
     { rule = { class = "trans" },
       properties = { tag = tags[1][4] } },
-
-    { rule = { class = "sublime" },
-      properties = { tag = tags[1][1] } },
 
     { rule = { class = "Skype" },
       properties = { tag = tags[1][4] } },
