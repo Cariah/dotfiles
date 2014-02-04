@@ -1,44 +1,26 @@
-URxvt*transparent: false
-urxvt*depth:32
-!urxvt*background:rgba:4000/4000/4000/eeff
-!URxvt*tintColor: brown
-URxvt*shading: 40
-URxvt*saveLines: 12000
+*Rxvt*scrollBar:		false
+*Rxvt*imLocale:			en_US.UTF-8
+*Rxvt*loginShell:		true
+*Rxvt*saveLines: 		5000
+*Rxvt*inheritPixmap:		false
+!*Rxvt*xftAntialias:		true
+*Rxvt*jumpScroll:		false
+*Rxvt*tintColor:		white
+*Rxvt*perl-ext-common:		default,matcher,tabbed
+*Rxvt*url-launcher:		google-chrome
+*Rxvt*matcher.button:		1
 
-!URxvt*font: xft:Ubuntu Mono:pixelsize=12:antialias=true:hinting=true
-!URxvt*boldFont: xft:Ubuntu Mono:bold:pixelsize=12:antialias=true:hinting=true
+URxvt*font: 			xft:tewi:pixelsize=11
+URxvt*boldFont: 		xft:tewi:pixelsize=11
 
-URxvt*font: xft:lemon
-URxvt*boldFont: xft:lemon
+!*Rxvt*letterSpace:		-1
 
-!URxvt*font: xft:uushi
-!URxvt*boldFont: xft:uushi:bold
-
-!URxvt*font: xft:tewi:pixelsize=8
-!URxvt*boldFont: xft:tewi:pixelsize=8
-!URxvt*font: xft:Liberation Mono:pixelsize=11:antialias=true:hinting=true
-!URxvt*boldFont: xft:Liberation Mono:bold:pixelsize=11:antialias=true:hinting=true
-!URxvt*font: xft:terminus:pixelsize=15
-!URxvt*boldFont: xft:terminus:bold:pixelsize=15
-!URxvt*font:-*-courier-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
-!URxvt*boldFont:-*-courier-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
-
-!URxvt*.iso14755: False
-!URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-!URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-
-URxvt*scrollBar: false
-URxvt*scrollBar_right: false
-!URxvt*scrollstyle: rxvt
-URxvt*perl-ext-common:default,matcher,tabbed
-URxvt*url-launcher: google-chrome
-URxvt*matcher.button:1
-!URxvt*colorUL: #e74c3c
-URxvt*iconFile: /home/roelof/term.svg
+!URxvt*colorUL: 	#e74c3c
+*Rxvt*iconFile:		/home/roelof/term.svg
 
 URxvt.urgentOnBell: True
 URxvt*tabbed.tabbar-fg: 1
-!URxvt*tabbed.tabbed-bg: 0
+URxvt*tabbed.tabbed-bg: 0
 URxvt*tabbed.tab-fg:	7
 URxvt*tabbed.tab-bg:	0
 
@@ -81,60 +63,60 @@ URxvt*tabbed.tab-bg:	0
 ! bright white
 !*color15: #ecf0f1
 
-
-! --- special colors ---
-!*background: #13191a
-!*foreground: #e2e8e9
-! --- standard colors ---
-! black
-!*color0: #13191a
-! bright_black
-!*color8: #3a4142
-! red
-!*color1: #b2094d
-! bright_red
-!*color9: #ed1269
-! green
-!*color2: #45b90a
-! bright_green
-!*color10: #62f313
-! yellow
-!*color3: #b2750a
-! bright_yellow
-!*color11: #ed9d13
-! blue
-!*color4: #024cb9
-! bright_blue
-!*color12: #0b68f4
-! magenta
-!*color5: #6f09b9
-! bright_magenta
-!*color13: #9612f4
-! cyan
-!*color6: #02b976
-! bright_cyan
-!*color14: #0bf39e
-! white
-!*color7: #9ca2a3
-! bright_white
-!*color15: #e2e8e9
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-URxvt*foreground: 	#E8DFD6
-URxvt*background:	#021B21
-URxvt*cursorColor:  #2E3340
-URxvt*color0:       #032C36
-URxvt*color8:       #065F73
-URxvt*color1:       #C2454E
-URxvt*color9:       #EF5847
-URxvt*color2:       #7CBF9E
-URxvt*color10:      #A2D9B1
-URxvt*color3:       #8A7A63
-URxvt*color11:      #BEB090
-URxvt*color4:       #2E3340
-URxvt*color12:      #61778D
-URxvt*color5:       #FF5879
-URxvt*color13:      #FF99A1
-URxvt*color6:       #44B5B1
-URxvt*color14:      #9ED9D8
-URxvt*color7:       #F2F1B9
-URxvt*color15:      #F6F6C9
+*foreground: 	#E8DFD6
+*background:	#021B21
+*cursorColor:  #2E3340
+*color0:       #032C36
+*color8:       #065F73
+*color1:       #C2454E
+*color9:       #EF5847
+*color2:       #7CBF9E
+*color10:      #A2D9B1
+*color3:       #8A7A63
+*color11:      #BEB090
+*color4:       #2E3340
+*color12:      #61778D
+*color5:       #FF5879
+*color13:      #FF99A1
+*color6:       #44B5B1
+*color14:      #9ED9D8
+*color7:       #F2F1B9
+*color15:      #F6F6C9
+
+#define base00 #2b303b
+#define base01 #343d46
+#define base02 #4f5b66
+#define base03 #65737e
+#define base04 #a7adba
+#define base05 #c0c5ce
+#define base06 #dfe1e8
+#define base07 #eff1f5
+#define base08 #bf616a
+#define base09 #d08770
+#define base0A #ebcb8b
+#define base0B #a3be8c
+#define base0C #96b5b4
+#define base0D #8fa1b3
+#define base0E #b48ead
+#define base0F #ab7967
+
+!*.foreground:   base05
+!*.background:   base00
+!*.cursorColor:  base05
+!*.color0:       base00
+!*.color1:       base08
+!*.color2:       base0B
+!*.color3:       base0A
+!*.color4:       base0D
+!*.color5:       base0E
+!*.color6:       base0C
+!*.color7:       base05
+!*.color8:       base03
+!*.color9:       base09
+!*.color10:      base01
+!*.color11:      base02
+!*.color12:      base04
+!*.color13:      base06
+!*.color14:      base0F
+!*.color15:      base07
