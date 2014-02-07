@@ -2,6 +2,7 @@
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
+require('awful.remote')
 -- Theme handling library
 require("beautiful")
 -- Notification library
@@ -150,7 +151,8 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
             	return "<span color='#e2e8e9'>⮕</span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
             end
         end
-    end, 5)
+    end, 3)
+
 mpdwidget:buttons( awful.util.table.join(
 	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
 	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
