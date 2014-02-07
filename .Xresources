@@ -16,7 +16,7 @@ URxvt.url-select.launcher: google-chrome
 URxvt.url-select.underline: true
 
 URxvt*font: 			xft:tewi:pixelsize=11
-URxvt*boldFont: 		xft:tewi:pixelsize=11
+URxvt*boldFont: 		xft:tewi:bold:pixelsize=11
 
 !*Rxvt*letterSpace:		-1
 
@@ -51,22 +51,22 @@ URxvt*tabbed.tab-bg:	0
 !*color7:       #F2F1B9
 !*color15:      #F6F6C9
 
-#define base00 #2b303b
-#define base01 #343d46
-#define base02 #4f5b66
-#define base03 #65737e
-#define base04 #a7adba
-#define base05 #c0c5ce
-#define base06 #dfe1e8
-#define base07 #eff1f5
-#define base08 #bf616a
-#define base09 #d08770
-#define base0A #ebcb8b
-#define base0B #a3be8c
-#define base0C #96b5b4
-#define base0D #8fa1b3
-#define base0E #b48ead
-#define base0F #ab7967
+!#define base00 #2b303b
+!#define base01 #343d46
+!#define base02 #4f5b66
+!#define base03 #65737e
+!#define base04 #a7adba
+!#define base05 #c0c5ce
+!#define base06 #dfe1e8
+!#define base07 #eff1f5
+!#define base08 #bf616a
+!#define base09 #d08770
+!#define base0A #ebcb8b
+!#define base0B #a3be8c
+!#define base0C #96b5b4
+!#define base0D #8fa1b3
+!#define base0E #b48ead
+!#define base0F #ab7967
 
 !*.foreground:   base05
 !*.background:   base00
@@ -103,6 +103,7 @@ URxvt*tabbed.tab-bg:	0
 #define S_green         #859900
 
 ! Dark
+
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -111,6 +112,7 @@ URxvt*tabbed.tab-bg:	0
 #define S_base1         #93a1a1
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
+
 ! Light
 
 ! #define S_base03        #fdf6e3
@@ -121,12 +123,6 @@ URxvt*tabbed.tab-bg:	0
 ! #define S_base1         #586e75
 ! #define S_base2         #073642
 ! #define S_base3         #002b36
-
-
-! To only apply colors to your terminal, for example, prefix
-! the color assignment statement with its name. Example:
-!
-! URxvt*background:            S_base03
 
 *background:              S_base03
 *foreground:              S_base0
@@ -152,3 +148,4 @@ URxvt*tabbed.tab-bg:	0
 *color13:                 S_violet
 *color14:                 S_base1
 *color15:                 S_base3
+
