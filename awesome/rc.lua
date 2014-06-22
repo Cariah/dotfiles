@@ -95,7 +95,7 @@ run_once("gnome-keyring-daemon --daemonize --login")
 run_once("urxvtd -q -f")
 --run_once("gnome-session --session=ubuntu")
 
-awful.util.spawn_with_shell("mpd /home/roelof/.mpd/mpd.conf")
+--awful.util.spawn_with_shell("mpd /home/roelof/.mpd/mpd.conf")
 
 -- }}}
 
@@ -137,32 +137,32 @@ datewidget = widget({ type = "textbox" })
 vicious.register(datewidget, vicious.widgets.date, " %b %d, <span color='#e2e8e9'>⮖</span> %R ", 1)
 
 -- Mpd
-mpdwidget = widget({ type = "textbox" })
-vicious.register(mpdwidget, vicious.widgets.mpd,
-    function (widget, args)
-        if args["{state}"] == ("Stop" or "N/A") then 
-            return "<span color='#e2e8e9'>⮕</span> Not Playing "
-        elseif args["{state}"] == "Pause" then
-        	return "<span color='#e2e8e9'>⮕</span> Paused "
-        else
-        	if args["{Artist}"] == "N/A" then
-            	return "<span color='#e2e8e9'>⮕</span> "..args["{file}"].." "
-            else
-            	return "<span color='#e2e8e9'>⮕</span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
-            end
-        end
-    end, 3)
+--mpdwidget = widget({ type = "textbox" })
+--vicious.register(mpdwidget, vicious.widgets.mpd,
+--    function (widget, args)
+--        if args["{state}"] == ("Stop" or "N/A") then 
+--            return "<span color='#e2e8e9'>⮕</span> Not Playing "
+--        elseif args["{state}"] == "Pause" then
+--        	return "<span color='#e2e8e9'>⮕</span> Paused "
+--        else
+--        	if args["{Artist}"] == "N/A" then
+--            	return "<span color='#e2e8e9'>⮕</span> "..args["{file}"].." "
+--            else
+--            	return "<span color='#e2e8e9'>⮕</span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
+--            end
+--        end
+--    end, 3)
 
-mpdwidget:buttons( awful.util.table.join(
-	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
-	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
-	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
-	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
-))
+--mpdwidget:buttons( awful.util.table.join(
+--	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
+--	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
+--	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
+--	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
+--))
 
 volwidget = widget({ type = 'textbox' })
 vicious.register(volwidget, vicious.widgets.volume,
-	'<span color="#e2e8e9">$2 </span>$1%', 2, "Master")
+	'<span color="#e2e8e9">$2 </span>$1%', 2, "-c 1 Master")
 
 -- memory widget
 memwidget = widget({ type = 'textbox' })
