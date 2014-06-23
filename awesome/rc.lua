@@ -44,7 +44,7 @@ beautiful.init("/home/roelof/.config/awesome/themes/kawai-cariah/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
-filemanage = "nautilus --no-desktop"
+filemanage = "pcmanfm"
 editor = os.getenv("EDITOR") or "subl"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -89,13 +89,12 @@ function run_once(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
 end
 
-run_once("nm-applet")
-run_once("gnome-settings-daemon")
-run_once("gnome-keyring-daemon --daemonize --login")
-run_once("urxvtd -q -f")
+--run_once("nm-applet")
+--run_once("gnome-settings-daemon")
+--run_once("gnome-keyring-daemon --daemonize --login")
+run_once("xfce4-power-manager")
+run_once("`urxvtd -q -f`")
 --run_once("gnome-session --session=ubuntu")
-
---awful.util.spawn_with_shell("mpd /home/roelof/.mpd/mpd.conf")
 
 -- }}}
 
@@ -137,28 +136,28 @@ datewidget = widget({ type = "textbox" })
 vicious.register(datewidget, vicious.widgets.date, " %b %d, <span color='#e2e8e9'>⮖</span> %R ", 1)
 
 -- Mpd
---mpdwidget = widget({ type = "textbox" })
---vicious.register(mpdwidget, vicious.widgets.mpd,
---    function (widget, args)
---        if args["{state}"] == ("Stop" or "N/A") then 
---            return "<span color='#e2e8e9'>⮕</span> Not Playing "
---        elseif args["{state}"] == "Pause" then
---        	return "<span color='#e2e8e9'>⮕</span> Paused "
---        else
---        	if args["{Artist}"] == "N/A" then
---            	return "<span color='#e2e8e9'>⮕</span> "..args["{file}"].." "
---            else
---            	return "<span color='#e2e8e9'>⮕</span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
---            end
---        end
---    end, 3)
+mpdwidget = widget({ type = "textbox" })
+vicious.register(mpdwidget, vicious.widgets.mpd,
+   function (widget, args)
+       if args["{state}"] == ("Stop" or "N/A") then
+           return "<span color='#e2e8e9'></span> Not Playing "
+       elseif args["{state}"] == "Pause" then
+       	return "<span color='#e2e8e9'></span> Paused "
+       else
+       	if args["{Artist}"] == "N/A" then
+           	return "<span color='#e2e8e9'></span> "..args["{file}"].." "
+           else
+           	return "<span color='#e2e8e9'></span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
+           end
+       end
+   end, 3)
 
---mpdwidget:buttons( awful.util.table.join(
---	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
---	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
---	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
---	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
---))
+mpdwidget:buttons( awful.util.table.join(
+	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
+	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
+	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
+	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
+))
 
 volwidget = widget({ type = 'textbox' })
 vicious.register(volwidget, vicious.widgets.volume,
@@ -235,11 +234,11 @@ sensorwidget = widget({ type = 'textbox' })
 vicious.register(sensorwidget, vicious.widgets.thermal, function(widget, args)
 	local temp = tonumber(args[1])
 	if temp > 63 then
-		naighty.notify({
+		naughty.notify({
 			preset = naughty.config.presets.critical,
 			title = 'Temperature Warning',
 			text = 'Is it me or is it hot in here?',
-			timeout = 13,
+			timeout = 10,
 		})
 		temp = '<span color="#C2454E">' .. temp .. '</span>'
 	end
@@ -312,7 +311,7 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = { }
-    mywibox[s][1] = awful.wibox({ position = 'top', screen = s, height = 13 })
+    mywibox[s][1] = awful.wibox({ position = 'top', screen = s })
     mywibox[s][2] = awful.wibox({ position = 'bottom', screen = s })
 
     -- Add widgets to the wibox - order matters
@@ -402,6 +401,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
+
+    -- Mofokin' volume controls
+    awful.key({ }, "XF86AudioRaiseVolume", function ()
+       awful.util.spawn("amixer set Master 5%+") end),
+   awful.key({ }, "XF86AudioLowerVolume", function ()
+       awful.util.spawn("amixer set Master 5%-") end),
+   awful.key({ }, "XF86AudioMute", function ()
+       awful.util.spawn("amixer set Master toggle") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -510,7 +517,7 @@ awful.rules.rules = {
     --{ rule = { class = "Google-chrome" },
 	--  properties = {
 	--	tag = tags[1][2],
-	--	border_width = 0 
+	--	border_width = 0
 	--	}, },
     -- Set Firefox to always map on tags number 2 of screen 1.
     --{ rule = { class = "Firefox" },
