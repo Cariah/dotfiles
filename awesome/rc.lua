@@ -93,7 +93,8 @@ end
 --run_once("gnome-settings-daemon")
 --run_once("gnome-keyring-daemon --daemonize --login")
 run_once("xfce4-power-manager")
-run_once("`urxvtd -q -f`")
+run_once("dropbox --start")
+-- run_once("$(urxvtd -q -o -f)")
 --run_once("gnome-session --session=ubuntu")
 
 -- }}}
@@ -209,7 +210,7 @@ batwidget = widget({ type = 'textbox' })
 vicious.register(batwidget, vicious.widgets.bat, function(widget, args)
 	local percent = args[2] .. '%'
 	if args[1] == '-' and args[2] < 25 then
-		percent = '<span color="' .. theme.urgent_bg .. '">' .. args[2] .. '%</span>'
+		percent = '<span color="' .. theme.bg_urgent .. '">' .. args[2] .. '%</span>'
 	end
 	if args[1] == '-' and args[2] < 20 then
 		naughty.notify({
