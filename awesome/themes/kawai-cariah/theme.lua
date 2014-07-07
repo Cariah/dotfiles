@@ -5,7 +5,7 @@ theme = {}
 theme.theme_dir = awful.util.getdir("config") .. "/themes/kawai-cariah"
 theme.wallpaper_cmd = { "awsetbg /home/roelof/.config/awesome/themes/kawai-cariah/background.jpg" }
 
-theme.font          = "Tewi"
+theme.font          = "Terminus 10"
 
 theme.bg_normal     = "#021B21"
 theme.bg_focus      = "#032C36"
@@ -96,5 +96,7 @@ theme.layout_spiral  = theme.theme_dir .. "/layouts/spiralw.png"
 theme.layout_dwindle = theme.theme_dir .. "/layouts/dwindlew.png"
 
 theme.awesome_icon = theme.theme_dir .. "/awesome16.png"
+theme.audio_muted_icon = theme.theme_dir .. "/icons/audio-volume-muted.png"
+theme.audio_high_icon = theme.theme_dir .. "/icons/audio-volume-high.png"
 
 return theme

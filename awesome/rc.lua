@@ -94,7 +94,9 @@ end
 --run_once("gnome-keyring-daemon --daemonize --login")
 run_once("xfce4-power-manager")
 run_once("dropbox --start")
--- run_once("$(urxvtd -q -o -f)")
+awful.util.spawn_with_shell("pgrep -u $USER -x xflux -l 53.1 -g 6.1")
+--run_once("xflux -l 53.1 -g 6.1")
+--run_once("$(urxvtd -q -o -f)")
 --run_once("gnome-session --session=ubuntu")
 
 -- }}}
