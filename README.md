@@ -19,4 +19,9 @@ and
 http://Github.com/lucy/tewi-font
 
 
+TODO:
+Add some functions
+Cleanup unused stuff in .bashrc etc.
+
+
 Currently werks on `myMachine™` Lubuntu 14.04
