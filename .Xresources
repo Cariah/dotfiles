@@ -1,0 +1,186 @@
+*Rxvt*scrollBar:		false
+*Rxvt*imLocale:			en_US.UTF-8
+*Rxvt*loginShell:		false
+*Rxvt*saveLines: 		6000
+*Rxvt*inheritPixmap:		false
+*Rxvt*xftAntialias:		false
+*Rxvt*jumpScroll:		false
+*Rxvt*tintColor:		white
+*Rxvt*perl-ext-common:		default,tabbed,url-select,clipboard
+*Rxvt*url-launcher:		google-chrome
+*Rxvt*matcher.button:		1
+URxvt.clipboard.autocopy:	true
+URxvt.iso14755:			false
+*fading:						20
+
+!	url-select
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: google-chrome
+URxvt.url-select.underline: true
+
+!	Clipboard
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+
+!URxvt*font: 			xft:tewi2a:pixelsize=11
+!URxvt*boldFont: 		xft:tewi2a:bold:pixelsize=11
+
+!URxvt*font:			xft:Terminus:12
+!URxvt*boldFont:			xft:Terminus:12
+
+URxvt*font:			xft:Monaco:11
+URxvt*boldFont:			xft:Monaco:11
+!*Rxvt*letterSpace:		-1
+
+!URxvt*colorUL: 		#e74c3c
+*Rxvt*iconFile:			/home/roelof/term.svg
+
+URxvt.urgentOnBell: 		True
+URxvt*tabbed.tabbar-fg: 	1
+URxvt*tabbed.tabbed-bg: 	0
+URxvt*tabbed.tab-fg:		7
+URxvt*tabbed.tab-bg:		0
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!*foreground: 	#839496
+!*background:	#021B21
+!*cursorColor:  #2E3340
+!*color0:       #032C36
+!*color8:       #065F73
+!*color1:       #C2454E
+!*color9:       #EF5847
+!*color2:       #7CBF9E
+!*color10:      #A2D9B1
+!*color3:       #8A7A63
+!*color11:      #BEB090
+!*color4:       #2E3340
+!*color12:      #61778D
+!*color5:       #FF5879
+!*color13:      #FF99A1
+!*color6:       #44B5B1
+!*color14:      #9ED9D8
+!*color7:       #F2F1B9
+!*color15:      #F6F6C9
+
+!#define base00 #2b303b
+!#define base01 #343d46
+!#define base02 #4f5b66
+!#define base03 #65737e
+!#define base04 #a7adba
+!#define base05 #c0c5ce
+!#define base06 #dfe1e8
+!#define base07 #eff1f5
+!#define base08 #bf616a
+!#define base09 #d08770
+!#define base0A #ebcb8b
+!#define base0B #a3be8c
+!#define base0C #96b5b4
+!#define base0D #8fa1b3
+!#define base0E #b48ead
+!#define base0F #ab7967
+
+!*.foreground:   base05
+!*.background:   base00
+!*.cursorColor:  base05
+!*.color0:       base00
+!*.color1:       base08
+!*.color2:       base0B
+!*.color3:       base0A
+!*.color4:       base0D
+!*.color5:       base0E
+!*.color6:       base0C
+!*.color7:       base05
+!*.color8:       base03
+!*.color9:       base09
+!*.color10:      base01
+!*.color11:      base02
+!*.color12:      base04
+!*.color13:      base06
+!*.color14:      base0F
+!*.color15:      base07
+
+! Solarized color scheme for the X Window System
+!
+! http://ethanschoonover.com/solarized
+! Common
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+
+! Dark
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+
+! Light
+
+!#define S_base03        #fdf6e3
+!#define S_base02        #eee8d5
+!#define S_base01        #93a1a1
+!#define S_base00        #839496
+!#define S_base0         #657b83
+!#define S_base1         #586e75
+!#define S_base2         #073642
+!#define S_base3         #002b36
+
+URxvt*background:              S_base03
+URxvt*foreground:              S_base0
+URxvt*fadeColor:               S_base03
+URxvt*cursorColor:             S_base1
+URxvt*pointerColorBackground:  S_base01
+URxvt*pointerColorForeground:  S_base1
+
+URxvt*color0:                  S_base02
+URxvt*color1:                  S_red
+URxvt*color2:                  S_green
+URxvt*color3:                  S_yellow
+URxvt*color4:                  S_blue
+URxvt*color5:                  S_magenta
+URxvt*color6:                  S_cyan
+URxvt*color7:                  S_base2
+URxvt*color9:                  S_orange
+URxvt*color8:                  S_base03
+URxvt*color10:                 S_base01
+URxvt*color11:                 S_base00
+URxvt*color12:                 S_base0
+URxvt*color13:                 S_violet
+URxvt*color14:                 S_base1
+URxvt*color15:                 S_base3
+
+!URxvt*color0: rgb:15/17/1c
+!URxvt*color1: rgb:f3/26/20
+!URxvt*color2: rgb:95/d1/29
+!URxvt*color3: rgb:f1/e4/32
+!URxvt*color4: rgb:e/82/c6
+!URxvt*color5: rgb:c4/5c/fd
+!URxvt*color6: rgb:1c/a9/fc
+!URxvt*color7: rgb:b3/b8/c3
+!URxvt*color8: rgb:55/55/55
+!URxvt*color9: rgb:f7/54/50
+!URxvt*color10: rgb:b6/e8/5c
+!URxvt*color11: rgb:f8/ee/65
+!URxvt*color12: rgb:35/9a/d5
+!URxvt*color13: rgb:d3/87/fd
+!URxvt*color14: rgb:75/cb/fe
+!URxvt*color15: rgb:ff/ff/ff
+!URxvt*background: rgb:18/1d/20
+!URxvt*foreground: rgb:eb/ec/ec
+!URxvt*cursorColor: rgb:bb/bb/bb
+!URxvt*colorBD: rgb:ff/ff/ff
+!URxvt*colorUL: rgb:6e/c/a3
+!URxvt*highlightColor: rgb:ff/ff/ff
