@@ -1,0 +1,17 @@
+-- netupicon = widget({ type = 'textbox' })
+-- netupicon.text = '<span color="#e2e8e9">⮴ </span>'
+-- netupwidget = widget({ type = 'textbox' })
+-- vicious.register(netupwidget, vicious.widgets.net, function(widget, args)
+--  local i = ''
+--  if args['{' .. wirelessinterface .. ' carrier}'] == 1 then
+--      i = wirelessinterface
+--  elseif args['{' .. wiredinterface .. ' carrier}'] == 1 then
+--      i = wiredinterface
+--  else
+--      netupicon.visible = false
+--      return ''
+--  end
+--  netupicon.visible = true
+--  return args['{' .. i .. ' up_kb}'] .. 'k<span color="#657b83">/' .. string.format('%.0f', args['{' .. i .. ' tx_mb}']) .. 'M</span>'
+-- end, 2.5)
+

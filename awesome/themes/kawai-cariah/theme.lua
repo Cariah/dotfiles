@@ -5,7 +5,8 @@ theme = {}
 theme.theme_dir = awful.util.getdir("config") .. "/themes/kawai-cariah"
 theme.wallpaper_cmd = { "awsetbg /home/roelof/.config/awesome/themes/kawai-cariah/background.jpg" }
 
-theme.font          = "Terminus 10"
+--theme.font          = "Terminus 10"
+theme.font = "Lucida Grande for Powerline 10"
 
 theme.bg_normal     = "#021B21"
 theme.bg_focus      = "#032C36"

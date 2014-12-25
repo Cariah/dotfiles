@@ -43,9 +43,9 @@ end
 beautiful.init("/home/roelof/.config/awesome/themes/kawai-cariah/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "st"
 filemanage = "pcmanfm"
-editor = os.getenv("EDITOR") or "subl"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -89,16 +89,12 @@ function run_once(prg)
 	awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
 end
 
---run_once("nm-applet")
---run_once("gnome-settings-daemon")
---run_once("gnome-keyring-daemon --daemonize --login")
+run_once("nm-applet")
+--awful.util.spawn("xscreensaver -nosplash", false)
+awful.util.spawn("xfsettingsd", false)
+--awful.util.spawn("mpd /home/roelof/.mpd/mpd.conf", false)
 run_once("xfce4-power-manager")
-run_once("dropbox --start")
-awful.util.spawn_with_shell("pgrep -u $USER -x xflux -l 53.1 -g 6.1")
---run_once("xflux -l 53.1 -g 6.1")
---run_once("$(urxvtd -q -o -f)")
---run_once("gnome-session --session=ubuntu")
-
+awful.util.spawn("wmname LG3D", false)
 -- }}}
 
 -- {{{ Menu
@@ -138,115 +134,13 @@ spacer.text = ' <span color="' .. theme.bg_focus .. '">|</span> '
 datewidget = widget({ type = "textbox" })
 vicious.register(datewidget, vicious.widgets.date, " %b %d, <span color='#e2e8e9'>⮖</span> %R ", 1)
 
--- Mpd
-mpdwidget = widget({ type = "textbox" })
-vicious.register(mpdwidget, vicious.widgets.mpd,
-	function (widget, args)
-		if args["{state}"] == ("Stop" or "N/A") then
-			return "<span color='#e2e8e9'></span> Not Playing "
-			elseif args["{state}"] == "Pause" then
-				return "<span color='#e2e8e9'></span> Paused "
-			else
-				if args["{Artist}"] == "N/A" then
-					return "<span color='#e2e8e9'></span> "..args["{file}"].." "
-				else
-					return "<span color='#e2e8e9'></span> "..args["{Artist}"]..' - '.. args["{Title}"].." "
-				end
-			end
-			end, 3)
-
-mpdwidget:buttons( awful.util.table.join(
-	awful.button({ }, 3, function() awful.util.spawn_with_shell('ncmpcpp ', false) end),
-	awful.button({ }, 1, function() awful.util.spawn_with_shell('mpc toggle', false) end),
-	awful.button({ }, 4, function() awful.util.spawn_with_shell('mpc prev', false) end),
-	awful.button({ }, 5, function() awful.util.spawn_with_shell('mpc next', false) end)
-	))
-
-volwidget = widget({ type = 'textbox' })
-vicious.register(volwidget, vicious.widgets.volume,
-	'<span color="#e2e8e9">$2 </span>$1%', 2, "-c 1 Master")
-
--- memory widget
-memwidget = widget({ type = 'textbox' })
-vicious.register(memwidget, vicious.widgets.mem,
-	'<span color="#e2e8e9">⮡ </span>$1%', 5)
-
--- Network widgets
--- netdownicon = widget({ type = 'textbox' })
--- netdownicon.text = '<span color="#e2e8e9">⮵ </span>'
--- netdownwidget = widget({ type = 'textbox' })
--- vicious.register(netdownwidget, vicious.widgets.net, function(widget, args)
---  local i = ''
---  if args['{' .. wirelessinterface .. ' carrier}'] == 1 then
---      i = wirelessinterface
---  elseif args['{' .. wiredinterface .. ' carrier}'] == 1 then
---      i = wiredinterface
---  else
---      netdownicon.visible = false
---      return 'disconnected'
---  end
---  netdownicon.visible = true
---  return args['{' .. i .. ' down_kb}'] .. 'k<span color="#657b83">/' .. string.format('%.0f', args['{' .. i .. ' rx_mb}']) .. 'M</span> '
--- end, 2.5)
--- -- ⮴
--- -- ⮵
--- netupicon = widget({ type = 'textbox' })
--- netupicon.text = '<span color="#e2e8e9">⮴ </span>'
--- netupwidget = widget({ type = 'textbox' })
--- vicious.register(netupwidget, vicious.widgets.net, function(widget, args)
---  local i = ''
---  if args['{' .. wirelessinterface .. ' carrier}'] == 1 then
---      i = wirelessinterface
---  elseif args['{' .. wiredinterface .. ' carrier}'] == 1 then
---      i = wiredinterface
---  else
---      netupicon.visible = false
---      return ''
---  end
---  netupicon.visible = true
---  return args['{' .. i .. ' up_kb}'] .. 'k<span color="#657b83">/' .. string.format('%.0f', args['{' .. i .. ' tx_mb}']) .. 'M</span>'
--- end, 2.5)
-
--- Battery widget
-batwidget = widget({ type = 'textbox' })
-vicious.register(batwidget, vicious.widgets.bat, function(widget, args)
-	local percent = args[2] .. '%'
-	if args[1] == '-' and args[2] < 25 then
-		percent = '<span color="' .. theme.bg_urgent .. '">' .. args[2] .. '%</span>'
-	end
-	if args[1] == '-' and args[2] < 20 then
-		naughty.notify({
-			preset = naughty.config.presets.critical,
-			title = 'Low power',
-			text = "I'm dying! Plug me in!",
-			timeout = 15,
-			})
-	end
-	if args[1] == '-' then
-		args[1] = '<span color="#C2454E">-</span>'
-		elseif args[1] == '+' then
-			args[1] = '<span color="#A2D9B1">+</span>'
-		else
-			args[1] = '<span color="#A2D9B1">⮎ </span>'
-		end
-		return args[1] .. percent
-		end, 20, 'BAT0')
-
--- Sensor widget
-sensorwidget = widget({ type = 'textbox' })
-vicious.register(sensorwidget, vicious.widgets.thermal, function(widget, args)
-	local temp = tonumber(args[1])
-	if temp > 63 then
-		naughty.notify({
-			preset = naughty.config.presets.critical,
-			title = 'Temperature Warning',
-			text = 'Is it me or is it hot in here?',
-			timeout = 10,
-			})
-		temp = '<span color="#C2454E">' .. temp .. '</span>'
-	end
-	return temp .. '<span color="#A2D9B1">°C</span>'
-	end, 5, 'thermal_zone0')
+require('mpd')
+require('volume')
+require('memory')
+require('netdown')
+require('netup')
+require('battery')
+require('sensor')
 
 -- Create a wibox for each screen and add it
 mywibox = { }
@@ -328,8 +222,8 @@ for s = 1, screen.count() do
 			sensorwidget, spacer,
 			memwidget, spacer,
 			batwidget, spacer,
-			--netdownwidget, netdownicon,
-			--space,
+			netdownwidget, netdownicon, spacer,
+			space,
 			--netupwidget, netupicon, spacer,
 			volwidget, spacer,
 			mpdwidget, space1, spacer,
@@ -402,14 +296,15 @@ globalkeys = awful.util.table.join(
 	awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
 	awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
 	awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+	awful.key({ "Control" , "Mod1" }, "l", function() awful.util.spawn("dm-tool lock", false) end),
 
 	awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
 	-- Mofokin' volume controls
 	awful.key({ }, "XF86AudioRaiseVolume", function ()
-		awful.util.spawn("amixer set Master 5%+") end),
+		awful.util.spawn("amixer set Master 5%+", false) end),
 	awful.key({ }, "XF86AudioLowerVolume", function ()
-		awful.util.spawn("amixer set Master 5%-") end),
+		awful.util.spawn("amixer set Master 5%-", false) end),
 	awful.key({ }, "XF86AudioMute", function ()
 		local fd    = io.popen("amixer sget Master")
 		local status = fd:read("*all")
@@ -438,7 +333,7 @@ globalkeys = awful.util.table.join(
 	end),
 
 	-- Prompt
-	awful.key({ modkey }, "r",     function () mypromptbox[mouse.screen]:run() end),
+	awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
 
 	awful.key({ modkey }, "x",
 		function ()
@@ -526,36 +421,55 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
 	-- All clients will match this rule.
-	{ rule = { },
-	properties = { border_width = beautiful.border_width,
-	border_color = beautiful.border_normal,
-	focus = true,
-	keys = clientkeys,
-	buttons = clientbuttons,
-	size_hints_honor = false } },
-	{ rule = { class = "MPlayer" },
-	properties = { floating = true } },
-	{ rule = { class = "pinentry" },
-	properties = { floating = true } },
-	{ rule = { class = "gimp" },
-	properties = { floating = true } },
+	{
+		rule = { },
+		properties = {
+			border_width = beautiful.border_width,
+			border_color = beautiful.border_normal,
+			focus = true,
+			keys = clientkeys,
+			buttons = clientbuttons,
+			size_hints_honor = false,
+		}
+	},
+	{
+		rule = { class = "MPlayer" },
+		properties = { floating = true }
+	},
+	{
+		rule = { class = "pinentry" },
+		properties = { floating = true }
+	},
+	{
+		rule = { class = "gimp" },
+		properties = { floating = true }
+	},
+	{
+		rule = { class = "asd" },
+		properties = {
+			floating = true,
+		}
+	},
+	{
+		rule = { class = "GUVCVideo" },
+		properties = { floating = true }
+	},
 
-	-- Set Chrome on screen1 tag 2
-	--{ rule = { class = "Google-chrome" },
-	--  properties = {
-	--  tag = tags[1][2],
-	--  border_width = 0
-	--  }, },
-	-- Set Firefox to always map on tags number 2 of screen 1.
-	--{ rule = { class = "Firefox" },
-	--  properties = { tag = tags[1][2] } },
+		-- Set Chrome on screen1 tag 2
+		--{ rule = { class = "Google-chrome" },
+		--  properties = {
+		--  tag = tags[1][2],
+		--  border_width = 0
+		--  }, },
+		-- Set Firefox to always map on tags number 2 of screen 1.
+		--{ rule = { class = "Firefox" },
+		--  properties = { tag = tags[1][2] } },
+	{
+		rule = { class = "Transmission" },
+		properties = { tag = tags[1][5] } },
 
-	{ rule = { class = "trans" },
-	properties = { tag = tags[1][4] } },
-
-	{ rule = { class = "Skype" },
-	properties = { tag = tags[1][4] } },
-
+		{ rule = { class = "Skype" },
+		properties = { tag = tags[1][4] } },
 }
 -- }}}
 
